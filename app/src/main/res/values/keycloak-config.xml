@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="authServerUrl">https://identity.syn-api.com/auth</string>
+	<string name="realm">cableco</string>
+	<string name="clientId">android-example-app</string>
+</resources>
