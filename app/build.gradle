@@ -1,0 +1,60 @@
+plugins {
+    id 'com.android.application'
+}
+
+android {
+    compileSdkVersion 29
+
+    defaultConfig {
+        applicationId "com.synacor.cloudidkeycloaklogin"
+        minSdkVersion 19
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+
+		//TODO: Document the purpose of this:
+		// Make sure this is consistent with the redirect URI used in res/raw/auth_config.json,
+		// or specify additional redirect URIs in AndroidManifest.xml
+		manifestPlaceholders = [
+				'appAuthRedirectScheme': 'net.openid.appauthdemo'
+		]
+    }
+
+	repositories {
+		maven { url "https://oss.jfrog.org/libs-snapshot" }
+	}
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'com.google.android.material:material:1.1.0'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation 'androidx.navigation:navigation-fragment:2.2.2'
+    implementation 'androidx.navigation:navigation-ui:2.2.2'
+
+	//RX Android: https://github.com/ReactiveX/RxAndroid
+	implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
+	implementation 'io.reactivex.rxjava3:rxjava:3.0.0'
+	implementation 'com.jakewharton.rxbinding4:rxbinding:4.0.0'
+
+	//OpenAuth: https://github.com/openid/AppAuth-Android
+	implementation 'net.openid:appauth:0.7.1'
+
+	testImplementation 'junit:junit:4.+'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+}
