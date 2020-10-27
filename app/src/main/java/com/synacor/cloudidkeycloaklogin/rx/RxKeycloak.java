@@ -4,8 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.util.Base64;
-import android.util.Log;
-
 import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
 
@@ -151,12 +149,8 @@ public class RxKeycloak {
 	public static Observable<AuthorizationService> service(final Activity context) {
 
 		return Observable.create(emitter -> {
-			Log.d("test", "Creating Service");
 			final AuthorizationService authService = new AuthorizationService(context);
-			emitter.setCancellable(() ->{
-				Log.d("test", "Dispose Service");
-				authService.dispose();
-			});
+			emitter.setCancellable(() -> authService.dispose());
 			emitter.onNext(authService);
 		});
 	}
@@ -193,9 +187,7 @@ public class RxKeycloak {
 
 	public static Maybe<AuthorizationResponse> authResult(final Observable<RxActivity.ActivityResult> onActivityResult, final int requestCode) {
 		return onActivityResult.firstOrError()
-				.doOnSuccess(d -> Log.d("test", "Activity Result"))
 				.filter(r -> r.requestCode == requestCode)
-				.doOnSuccess(d -> Log.d("test", "Activity Result: Matches Request Code"))
 				.flatMapSingle(r -> {
 					if(r.resultCode != Activity.RESULT_OK) {
 						return Single.error(new Exception("User Abandoned Auth."));
